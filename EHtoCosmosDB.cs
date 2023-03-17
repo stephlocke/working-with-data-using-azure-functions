@@ -14,9 +14,13 @@ namespace SqlBits.Functions
     {
         [FunctionName("EHtoCosmosDB")]
         public static async Task Run([EventHubTrigger("person", Connection = "eh")] EventData[] events,
-        // cosmosdb output with container CorpDB, connection cdb with a schema of person
-        [CosmosDB(databaseName: "CorpDB", collectionName: "people", ConnectionStringSetting = "cdb", CreateIfNotExists = true)] IAsyncCollector<Person> outputEvents,
-        ILogger log)
+        // cosmosdb async collector of persons, container person db corpdb connection cdb
+        [CosmosDB(
+            databaseName: "CorpDB",
+            collectionName: "people",
+            ConnectionStringSetting = "cdb",
+            CreateIfNotExists = true)] IAsyncCollector<Person> outputEvents,
+         ILogger log)
         {
             var exceptions = new List<Exception>();
 
@@ -24,9 +28,10 @@ namespace SqlBits.Functions
             {
                 try
                 {
-                   // convert eventbody to Person object
-                   await outputEvents.AddAsync(eventData.EventBody.ToObjectFromJson<Person>());
-                  
+                    // get the eventdata eventbody as a person
+                    var person = eventData.EventBody.ToObjectFromJson<Person>();
+                    // add the person to the outputEvents
+                    await outputEvents.AddAsync(person);
                 }
                 catch (Exception e)
                 {
