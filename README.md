@@ -30,4 +30,4 @@ Azure Functions are an ideal solution for a variety of scenarios, such as data p
 
     * GitHub: [@stephlocke](https://github.com/stephlocke)
     * Twitter: [@theStephLocke](https://www.twitter.com/theStephLocke)
-    * LinkedIn: [www.kunalbabre.com](https://www.linkedin.com/in/stephanielocke/)
+    * LinkedIn: [@stephanielocke](https://www.linkedin.com/in/stephanielocke/)
